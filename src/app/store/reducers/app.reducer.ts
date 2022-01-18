@@ -1,5 +1,4 @@
 import { Action, createReducer, on } from "@ngrx/store";
-
 import { generateGuid } from "src/app/helpers/generate-guid";
 import { AppActions } from "../actions/app.action";
 export interface IUser{
@@ -23,6 +22,11 @@ export const initialState: IUserList = {
     ]
 }
 
-const storeReducer = createReducer(
+const appReducer = createReducer(
     initialState,
+    
 )
+
+export function AppReducer(state: IUserList | undefined, action: Action) {
+    return appReducer(state, action)
+}

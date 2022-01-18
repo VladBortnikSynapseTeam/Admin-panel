@@ -11,10 +11,12 @@
                     <p class="form-text">Sign up on our platform</p>
                 </div>
                 <form [formGroup]="registerForm" (submit)="registerUser(registerForm)">
-                    <input type="text" class="sign-in-input" placeholder="Username" formControlName="username">
-                    <div class="error-container" *ngIf="registerForm.controls['username'].touched && !registerForm.controls['username'].valid" >
-                        <div class="error-handler" *ngIf="!registerForm.controls['username'].value || registerForm.controls['username'].hasError('minlength')">
-                            Your username must be at least 6 characters
+                    <input type="text" class="sign-in-input" placeholder="First Name" formControlName="firstName">
+                    <input type="text" class="sign-in-input" placeholder="Last Name" formControlName="lastName">
+                    <input type="text" class="sign-in-input" placeholder="Email Address" formControlName="email">
+                    <div class="error-container" *ngIf="registerForm.controls['email'].touched && !registerForm.controls['email'].valid" >
+                        <div class="error-handler" *ngIf="!registerForm.controls['email'].value">
+                            Your email is not correct
                         </div>
                     </div>
                     <input type="text" class="sign-in-input" placeholder="Password" formControlName="password" minlength="8" type="password">

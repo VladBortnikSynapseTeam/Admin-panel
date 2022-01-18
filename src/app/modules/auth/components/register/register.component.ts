@@ -1,6 +1,6 @@
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {  FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { CustomValidators } from 'src/app/custom-validators';
 import { Router } from '@angular/router';
@@ -22,7 +22,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
-      username: new FormControl("",[Validators.minLength(6), Validators.required]),
+      email: new FormControl("",[Validators.email, Validators.required]),
+      firstName: new FormControl("",[Validators.required]),
+      lastName: new FormControl("",[Validators.required]),
       password: new FormControl("",[
       Validators.required,
       CustomValidators.patternValidator(/[a-zA-Z]/,{noAlphabeticCharacters:true}),
@@ -42,8 +44,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   registerUser(formControl: any){
-
-  
+    console.log(formControl);
   }
 
   ngOnDestroy() {
