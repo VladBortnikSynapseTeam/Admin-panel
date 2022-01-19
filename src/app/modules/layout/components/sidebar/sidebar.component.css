@@ -70,7 +70,7 @@ nav {
   width: 270px;
   height: 100%;
 }
-.products-button {
+.products-button-active {
   width: 90%;
   border-radius: 4px;
   margin: 10px 0px 0px 0px;
@@ -78,7 +78,14 @@ nav {
   display: flex;
   height: 46px;
   align-items: center;
-  background: #f6f9fd;
+  background-color: #f6f9fd;
+}
+.products-button {
+  width: 90%;
+  margin: 10px 0px 0px 0px;
+  display: flex;
+  height: 46px;
+  align-items: center;
 }
 .products-text {
   font-family: Montserrat;
