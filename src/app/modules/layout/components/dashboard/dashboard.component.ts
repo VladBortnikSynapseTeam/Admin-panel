@@ -17,7 +17,12 @@ export class DashboardComponent implements OnInit {
       "#00B4D8",
       "#EDF0F2"
     ],
+    stackBorderRadius: [10,10,0,0],
     legend: {show: false},
+    grid: {
+      width: '93%',
+      right: '2%'
+    },
     tooltip: {},
     dataset: {
       dimensions: ['web', 'desktop', 'mobile'],
@@ -28,14 +33,37 @@ export class DashboardComponent implements OnInit {
         { web: '4 Aug', 'desktop': 23000, 'mobile': 28000 },
         { web: '5 Aug', 'desktop': 27000, 'mobile': 28000 },
         { web: '6 Aug', 'desktop': 17000, 'mobile': 23000 },
-        { web: '6 Аug', 'desktop': 16000, 'mobile': 12000 }
+        { web: '6 Аug', 'desktop': 0, 'mobile': 0 }
       ]
     },
-    xAxis: { type: 'category' },
-    yAxis: {},
+    xAxis: { type: 'category',axisLine: {show: false}, axisTick: {show: false} },
+    yAxis: [{
+      type: "value",
+      splitLine: {
+        show: true,
+        lineStyle: {
+          type: "dashed"
+        }
+      }
+    }],
     // Declare several bar series, each will be mapped
     // to a column of dataset.source by default.
-    series: [{ type: 'bar', barWidth: 10 }, { type: 'bar', barWidth: 10}]
+    series: [
+      { type: 'bar', 
+        barWidth: 10, 
+        itemStyle: {
+          emphasis: {barBorderRadius: [50,50]}, 
+          normal: {barBorderRadius: [50,50,0,0]}
+        }
+      },
+      { type: 'bar',
+        barWidth: 10,
+        itemStyle: {
+          emphasis: {barBorderRadius: [15,15]}, 
+          normal: {barBorderRadius: [15,15,0,0]}
+        }
+      }
+    ]
   };
 
 option && myChart.setOption(option);
