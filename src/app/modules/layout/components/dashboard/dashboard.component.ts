@@ -1,13 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as echarts from 'echarts';
+import { Observable } from 'rxjs';
+import { IDashboardGraph, IUser, IUserList } from 'src/app/store/reducers/app.reducer';
+import { AppSelectors } from 'src/app/store/selectors/app.selector';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
+  dashboardData: IDashboardGraph;
+  constructor(private store$: Store) { 
+    this.store$.select(AppSelectors.state).subscribe(
+      store => {
+        this.dashboardData = store.dashboardData;
+        
+      }
+    );
+   }
 
   ngOnInit(): void {
   var chartDom = document.getElementById('graph')!;

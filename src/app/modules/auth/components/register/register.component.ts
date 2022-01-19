@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CustomValidators } from 'src/app/custom-validators';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   registerForm!: FormGroup;
   
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private router: Router, private state$: Store, private authServise: AuthService) { }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -44,7 +45,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   registerUser(formControl: any){
-    console.log(formControl);
+    //firstName:string, lastName: string, email: string, password: string
+    let data = formControl.value;
+    let registerUserData = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password
+    }
+    this.authServise.registerUser(registerUserData);
   }
 
   ngOnDestroy() {

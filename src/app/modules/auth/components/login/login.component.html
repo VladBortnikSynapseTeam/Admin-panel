@@ -11,7 +11,7 @@
                     <p class="form-text">Sign in our platform</p>
                 </div>
                 <form action="GET" [formGroup]="loginForm" (submit)="loginUser(loginForm)">
-                    <input type="text" class="sign-in-input" placeholder="Username" formControlName="username">
+                    <input type="text" class="sign-in-input" placeholder="Email" formControlName="username">
                     <div class="error-container" *ngIf="loginForm.controls['username'].touched && !loginForm.controls['username'].valid">
                         <div class="error-handler" *ngIf="!loginForm.controls['username'].value || loginForm.controls['username'].hasError('minlength')">
                             Your username must be at least 6 characters

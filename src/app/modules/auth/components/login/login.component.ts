@@ -12,7 +12,6 @@ import { Subject } from 'rxjs';
 })
 
 export class LoginComponent implements OnInit, OnDestroy {
-
   successLogin: boolean = true;
   destroy$: Subject<boolean> = new Subject<boolean>();
   loginForm = new FormGroup({
@@ -25,13 +24,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     Validators.minLength(8)
     ])
   })
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
   
   ngOnInit(): void {
 
   }
 
   loginUser(loginForm: FormGroup){
+    let data = loginForm.value;
+    let loginUserData = {
+      email: data.username,
+      password: data.password
+    }
+    this.authService.loginUser(loginUserData)
   }
   
   ngOnDestroy() {
