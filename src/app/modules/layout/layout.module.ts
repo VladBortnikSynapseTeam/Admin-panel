@@ -10,6 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProductsComponent } from './components/products/products.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    SharedMaterialModuleModule
+    SharedMaterialModuleModule,
+    ReactiveFormsModule
   ]
 })
 export class LayoutModule { }

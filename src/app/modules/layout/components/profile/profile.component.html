@@ -1,1 +1,88 @@
-<p>profile works!</p>
+<div class="profile-container">
+    <div class="profile-picture-container">
+        <div class="upload-picture-container">
+            <div class="upload-picture-info">
+                <div class="upload-picture-title">
+                    <p class="profile-title">Ivan Ivanov</p>
+                    <p class="profile-information">Rm. Valcea, Romania <br> 4:32PM (GMT-4)</p>
+                </div>
+                <div class="upload-picture-img">
+                    <img src="../../../../../assets/Rectangle.png" class="profile-image">
+                </div>
+            </div>
+            <div class="upload-picture-actions">
+                <button class="upload-btn">Upload Picture</button>
+                <button class="remove-btn">Remove Picture</button>
+            </div>
+        </div>
+    </div>
+    <div class="profile-info-container">
+        <div class="basic-profile-container">
+            <div class="basic-info-container">
+                <span class="basic-title">Basic Profile</span>
+                <span class="basic-text">The information can be edited from yuor profile page</span>
+            </div> 
+            <form class="profile-form-container" [formGroup]="editForm">
+                <input type="text" class="profile-input" placeholder="First Name">
+                <input type="text" class="profile-input" placeholder="Last Name">
+                <input type="text" class="profile-input" placeholder="Email address">
+                <input type="text" class="profile-input" placeholder="Phone Number">
+                <input type="text" class="profile-input" placeholder="Country">
+                <input type="text" class="profile-input" placeholder="City">
+            </form>
+            <mat-divider></mat-divider>
+            <button class="save-btn">Save settings</button>
+        </div>
+        <div class="notifications-container">
+            <div class="basic-info-container">
+                <span class="basic-title">Notifications</span>
+                <span class="basic-text">Mange the notifications emailing</span>
+                <mat-divider></mat-divider>
+            </div> 
+            <form action="" class="profile-checkbox-form-container">
+                <div class="notifications-block">
+                    <span class="notifications-title">Notifications</span>
+                    <label class="label-container">
+                        <input type="checkbox" class="checkbox-input">
+                        <span class="label-title">Email</span>
+                    </label>
+                    <label class="label-container">
+                        <input type="checkbox" class="checkbox-input">
+                        <span class="label-title">
+                            Push notifications<br>
+                            <span class="sub-label-title">For your mobile or tablet device</span>
+                        </span>
+                    </label>
+                    <label class="label-container">
+                        <input type="checkbox" class="checkbox-input">
+                        <span class="label-title">Text Messages</span>
+                    </label>
+                    <label class="label-container">
+                        <input type="checkbox" class="checkbox-input">
+                        <span class="label-title">Phone Calls</span>
+                    </label>
+                </div>
+                <div class="messages-block">
+                    <span class="messages-title">Messages</span>
+                    <label class="label-container">
+                        <input type="checkbox" class="checkbox-input">
+                        <span class="label-title">Email</span>
+                    </label>
+                    <label class="label-container">
+                        <input type="checkbox" class="checkbox-input">
+                        <span class="label-title">
+                            Push notifications<br>
+                            <span class="sub-label-title">For your mobile or tablet device</span>
+                        </span>
+                    </label>
+                    <label class="label-container">
+                        <input type="checkbox" class="checkbox-input">
+                        <span class="label-title">Text Messages</span>
+                    </label>
+                </div>
+            </form>
+            <mat-divider></mat-divider>
+            <button class="save-btn">Save settings</button>
+        </div>
+    </div>
+</div>

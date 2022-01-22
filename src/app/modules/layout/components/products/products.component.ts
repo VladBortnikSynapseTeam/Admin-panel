@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IUserList } from 'src/app/store/reducers/app.reducer';
+import { IProductList, IUserList } from 'src/app/store/reducers/app.reducer';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
 
 @Component({
@@ -10,12 +11,22 @@ import { AppSelectors } from 'src/app/store/selectors/app.selector';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  products$: Observable<IUserList>
+  products: IProductList[];
+  productList: IProductList[];
+  liveSearchCounter = 0;
+  searchInput: FormControl = new FormControl('');
   constructor(private store$: Store) { 
-    this.products$ = this.store$.select(AppSelectors.state)
+    this.store$.select(AppSelectors.state).subscribe((state)=>{
+      this.products = state.products;   
+      this.productList = state.products;   
+    })
    }
 
   ngOnInit(): void {
+    
   }
 
+  onInputChange():void{
+    this.products = this.productList ? this.productList.filter(item => item.title.search(new RegExp(this.searchInput.value, 'i')) > -1) : [];
+    }
 }

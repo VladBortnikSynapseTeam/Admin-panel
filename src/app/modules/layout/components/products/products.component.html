@@ -17,12 +17,12 @@
             <div class="search-container">
                 <div class="search-block">
                     <img src="../../../../../assets/search.svg" class="search-icon">
-                    <input type="text" placeholder="Search users by name, id">
+                    <input type="text" placeholder="Search users by name, id" (input)="onInputChange()" [formControl]="searchInput">
                 </div>
                 <button mat-raised-button class="product-btn">New Product</button>
             </div>
             <div class="card-container">
-                <div class="card" *ngFor="let product of (products$ | async)?.products">
+                <div class="card" *ngFor="let product of products">
                     <div class="card-logo">
                         <img [src]="product.imgUrl" class="logo-picture">
                     </div>

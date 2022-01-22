@@ -1,6 +1,7 @@
 .products-container {
   width: 100%;
   padding-top: 20px;
+  height: calc(100vh + 50px);
 }
 .header-image {
   width: 100%;
