@@ -3,11 +3,11 @@
         <div class="upload-picture-container">
             <div class="upload-picture-info">
                 <div class="upload-picture-title">
-                    <p class="profile-title">Ivan Ivanov</p>
+                    <p class="profile-title">{{(currentUser | async)?.firstName}}{{(currentUser | async)?.lastName}}</p>
                     <p class="profile-information">Rm. Valcea, Romania <br> 4:32PM (GMT-4)</p>
                 </div>
                 <div class="upload-picture-img">
-                    <img src="../../../../../assets/Rectangle.png" class="profile-image">
+                    <img [src]="(currentUser | async).avatarURL" class="profile-image">
                 </div>
             </div>
             <div class="upload-picture-actions">
@@ -23,15 +23,15 @@
                 <span class="basic-text">The information can be edited from yuor profile page</span>
             </div> 
             <form class="profile-form-container" [formGroup]="editForm">
-                <input type="text" class="profile-input" placeholder="First Name">
-                <input type="text" class="profile-input" placeholder="Last Name">
-                <input type="text" class="profile-input" placeholder="Email address">
-                <input type="text" class="profile-input" placeholder="Phone Number">
-                <input type="text" class="profile-input" placeholder="Country">
-                <input type="text" class="profile-input" placeholder="City">
+                <input type="text" class="profile-input" placeholder="First Name" formControlName="firstName">
+                <input type="text" class="profile-input" placeholder="Last Name" formControlName="lastName">
+                <input type="text" class="profile-input" placeholder="Email address" formControlName="email">
+                <input type="text" class="profile-input" placeholder="Phone Number" formControlName="phone">
+                <input type="text" class="profile-input" placeholder="Country" formControlName="country">
+                <input type="text" class="profile-input" placeholder="City" formControlName="city">
             </form>
             <mat-divider></mat-divider>
-            <button class="save-btn">Save settings</button>
+            <button class="save-btn" (click)="profileEdit()">Save settings</button>
         </div>
         <div class="notifications-container">
             <div class="basic-info-container">
@@ -39,50 +39,50 @@
                 <span class="basic-text">Mange the notifications emailing</span>
                 <mat-divider></mat-divider>
             </div> 
-            <form action="" class="profile-checkbox-form-container">
+            <form action="" class="profile-checkbox-form-container" [formGroup]="notificationForm">
                 <div class="notifications-block">
                     <span class="notifications-title">Notifications</span>
                     <label class="label-container">
-                        <input type="checkbox" class="checkbox-input">
+                        <input type="checkbox" class="checkbox-input" formControlName="notificationsEmail">
                         <span class="label-title">Email</span>
                     </label>
                     <label class="label-container">
-                        <input type="checkbox" class="checkbox-input">
+                        <input type="checkbox" class="checkbox-input" formControlName="notificationsPush">
                         <span class="label-title">
                             Push notifications<br>
                             <span class="sub-label-title">For your mobile or tablet device</span>
                         </span>
                     </label>
                     <label class="label-container">
-                        <input type="checkbox" class="checkbox-input">
+                        <input type="checkbox" class="checkbox-input" formControlName="notificationsText">
                         <span class="label-title">Text Messages</span>
                     </label>
                     <label class="label-container">
-                        <input type="checkbox" class="checkbox-input">
+                        <input type="checkbox" class="checkbox-input" formControlName="notificationsPhone">
                         <span class="label-title">Phone Calls</span>
                     </label>
                 </div>
                 <div class="messages-block">
                     <span class="messages-title">Messages</span>
                     <label class="label-container">
-                        <input type="checkbox" class="checkbox-input">
+                        <input type="checkbox" class="checkbox-input" formControlName="messagesEmail">
                         <span class="label-title">Email</span>
                     </label>
                     <label class="label-container">
-                        <input type="checkbox" class="checkbox-input">
+                        <input type="checkbox" class="checkbox-input" formControlName="messagesPush">
                         <span class="label-title">
                             Push notifications<br>
                             <span class="sub-label-title">For your mobile or tablet device</span>
                         </span>
                     </label>
                     <label class="label-container">
-                        <input type="checkbox" class="checkbox-input">
+                        <input type="checkbox" class="checkbox-input" formControlName="messagesText">
                         <span class="label-title">Text Messages</span>
                     </label>
                 </div>
             </form>
             <mat-divider></mat-divider>
-            <button class="save-btn">Save settings</button>
+            <button class="save-btn" (click)="notificationsSettings()">Save settings</button>
         </div>
     </div>
 </div>

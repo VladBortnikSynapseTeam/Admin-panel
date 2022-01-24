@@ -11,12 +11,13 @@ export interface IUser{
     phone: string;
     country: string;
     city: string;
+    avatarURL: string;
 }
-
 export interface IUserList {
     userList: IUser[];
     dashboardData: IDashboardGraph;
     products: IProductList[];
+    currentUser
 }
 
 export interface IProductList {
@@ -33,7 +34,18 @@ export interface IDashboardGraph{
 }
 export const initialState: IUserList = {
     userList: [
-        {userId: generateGuid(), firstName: "Ivan", lastName: "Ivanov", nickname: "SampleUser", email: "sampleuser1@mail.com", password:"Cardlord231202!", phone: "+380980954256", country: "Ukraine", city: "Vinnytsia"}
+        {
+            userId: generateGuid(), 
+            firstName: "Ivan",
+            lastName: "Ivanov",
+            nickname: "SampleUser",
+            email: "sampleuser1@mail.com",
+            password:"Cardlord231202!",
+            phone: "+380980954256",
+            country: "Ukraine",
+            city: "Vinnytsia",
+            avatarURL:"../../../../../assets/no-avatar.png"
+        }
     ],
     dashboardData: {
         budget: 24000,
@@ -73,15 +85,34 @@ export const initialState: IUserList = {
             text: "Squarespace provides software as a service for website building and hosting. Headquartered in NYC."
         },
         
-    ]
+    ],
+    currentUser: {}
 }
 
 const appReducer = createReducer(
     initialState,
     on(AppActions.registerUser, (state, { firstName, lastName, email, password }) => {
-        const newUserList: IUser = {userId: generateGuid(), firstName, lastName, nickname: "Guest", email, password, phone: "Unknown",country: "Unknown", city: "Unknown"};
-        return {...state, userList: [...state.userList, newUserList]};
-      })
+        const newUserList: IUser = {
+            userId: generateGuid(),
+            firstName,
+            lastName,
+            nickname: "Guest",
+            email,
+            password,
+            phone: "Unknown",
+            country: "Unknown",
+            city: "Unknown",
+            avatarURL:"../../../../../assets/no-avatar.png"
+        };
+        return {...state, userList: [...state.userList, newUserList],currentUser: newUserList};
+      }),
+    on(AppActions.loginUser, (state, {user})=>{
+        return {...state, currentUser: user}
+    }),
+    on(AppActions.logOut, state => {
+        return {...state, currentUser: {}}
+    })
+    
 )
 
 export function AppReducer(state: IUserList | undefined, action: Action) {

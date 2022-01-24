@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppActions } from 'src/app/store/actions/app.action';
 
 @Component({
   selector: 'app-header',
@@ -7,11 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store$: Store) { }
 
   ngOnInit(): void {
   }
-  removeToken(){
-    
+  logOut(){
+    this.store$.dispatch(AppActions.logOut())
   }
 }
