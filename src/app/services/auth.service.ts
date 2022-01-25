@@ -16,7 +16,6 @@ export class AuthService {
     });
    }
   loginUser(loginUserData){
-    console.log(this.userList);
     this.userList.forEach(user => {
         if(user.email == loginUserData.email && user.password == loginUserData.password){
           this.store$.dispatch(AppActions.loginUser({user}))

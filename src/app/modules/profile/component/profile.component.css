@@ -71,8 +71,8 @@
   height: 140px;
   border-radius: 13px;
 }
-.upload-btn,
-.remove-btn {
+.remove-btn,
+.upload-btn {
   width: 147px;
   height: 40px;
   border: none;
@@ -87,17 +87,40 @@
   text-transform: uppercase;
   border-radius: 5px;
 }
-.upload-btn {
+.upload-btn::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.upload-btn::before {
+  content: "Upload Picture";
+  text-transform: uppercase;
+  display: inline-block;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
   color: #00b4d8;
-  transition: 0.2s linear;
+  border-radius: 4px;
+  background-color: white;
+  padding: 12px;
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.upload-btn:hover::before {
+  background-color: #00b4d8;
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+.upload-btn:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 .remove-btn {
   color: #425a70;
-  transition: 0.2s linear;
-}
-.upload-btn:hover {
-  background-color: #00b4d8;
-  color: white;
   transition: 0.2s linear;
 }
 .remove-btn:hover {
@@ -142,18 +165,8 @@
 }
 .profile-input {
   width: 328px;
-  height: 56px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.15px;
-  outline: none;
-  border: 1px solid rgba(0, 0, 0, 0.32);
-  box-sizing: border-box;
   border-radius: 4px;
-  padding-left: 16px;
+  padding: 0px;
 }
 .profile-form-container,
 .profile-checkbox-form-container {

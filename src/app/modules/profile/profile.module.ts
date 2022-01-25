@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './component/profile.component';
-import { SharedMaterialModuleModule } from '../shared-material-module/shared-material-module.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedMaterialModuleModule } from '../shared-material-module/shared-material-module.module';
 
 
 @NgModule({
@@ -12,8 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    SharedMaterialModuleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedMaterialModuleModule
   ]
 })
 export class ProfileModule { }

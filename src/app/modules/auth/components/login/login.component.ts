@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   successLogin: boolean = true;
   destroy$: Subject<boolean> = new Subject<boolean>();
   loginForm = new FormGroup({
-    username: new FormControl("",Validators.minLength(6)),
-    password: new FormControl("",[
+    username: new FormControl("user@mail.com",Validators.minLength(6)),
+    password: new FormControl("Cardlord231202!",[
       Validators.required,
     CustomValidators.patternValidator(/[a-zA-Z]/,{noAlphabeticCharacters:true}),
     CustomValidators.patternValidator(/[0-9]/,{noNumericCharacters: true}),

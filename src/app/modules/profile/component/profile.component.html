@@ -3,16 +3,16 @@
         <div class="upload-picture-container">
             <div class="upload-picture-info">
                 <div class="upload-picture-title">
-                    <p class="profile-title">{{(currentUser | async)?.firstName}}{{(currentUser | async)?.lastName}}</p>
-                    <p class="profile-information">Rm. Valcea, Romania <br> 4:32PM (GMT-4)</p>
+                    <p class="profile-title">{{currentUser.firstName}} {{currentUser.lastName}}</p>
+                    <p class="profile-information">{{currentUser.country}}, {{currentUser.city}}</p>
                 </div>
                 <div class="upload-picture-img">
-                    <img [src]="(currentUser | async).avatarURL" class="profile-image">
+                    <img [src]="currentUser.avatarURL" class="profile-image">
                 </div>
             </div>
             <div class="upload-picture-actions">
-                <button class="upload-btn">Upload Picture</button>
-                <button class="remove-btn">Remove Picture</button>
+                <input #file type="file" class="upload-btn" accept='image/*' (change)="userPhotoUpdate(file.files)"> 
+                <button class="remove-btn" (click)="removeAvatar()">Remove Picture</button>
             </div>
         </div>
     </div>
@@ -23,12 +23,30 @@
                 <span class="basic-text">The information can be edited from yuor profile page</span>
             </div> 
             <form class="profile-form-container" [formGroup]="editForm">
-                <input type="text" class="profile-input" placeholder="First Name" formControlName="firstName">
-                <input type="text" class="profile-input" placeholder="Last Name" formControlName="lastName">
-                <input type="text" class="profile-input" placeholder="Email address" formControlName="email">
-                <input type="text" class="profile-input" placeholder="Phone Number" formControlName="phone">
-                <input type="text" class="profile-input" placeholder="Country" formControlName="country">
-                <input type="text" class="profile-input" placeholder="City" formControlName="city">
+                <mat-form-field appearance="outline" class="profile-input">
+                    <mat-label>First Name</mat-label>
+                    <input type="text" matInput formControlName="firstName">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="profile-input">
+                    <mat-label>Last Name</mat-label>
+                    <input type="text" matInput formControlName="lastName">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="profile-input">
+                    <mat-label>Email address</mat-label>
+                    <input type="text" matInput formControlName="email">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="profile-input">
+                    <mat-label>Phone number</mat-label>
+                    <input type="text" matInput formControlName="phone">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="profile-input">
+                    <mat-label>Country</mat-label>
+                    <input type="text" matInput formControlName="country">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="profile-input">
+                    <mat-label>City</mat-label>
+                    <input type="text" class="profile-input" matInput formControlName="city">
+                </mat-form-field>
             </form>
             <mat-divider></mat-divider>
             <button class="save-btn" (click)="profileEdit()">Save settings</button>

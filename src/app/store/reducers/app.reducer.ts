@@ -17,7 +17,18 @@ export interface IUserList {
     userList: IUser[];
     dashboardData: IDashboardGraph;
     products: IProductList[];
-    currentUser
+    currentUser: any,
+    notifications: INotifications;
+}
+
+export interface INotifications{
+    notificationsEmail: boolean,
+    notificationsPush: boolean,
+    notificationsText: boolean,
+    notificationsPhone: boolean,
+    messagesEmail: boolean,
+    messagesPush: boolean,
+    messagesText: boolean,
 }
 
 export interface IProductList {
@@ -39,7 +50,7 @@ export const initialState: IUserList = {
             firstName: "Ivan",
             lastName: "Ivanov",
             nickname: "SampleUser",
-            email: "sampleuser1@mail.com",
+            email: "user@mail.com",
             password:"Cardlord231202!",
             phone: "+380980954256",
             country: "Ukraine",
@@ -86,7 +97,16 @@ export const initialState: IUserList = {
         },
         
     ],
-    currentUser: {}
+    currentUser: {},
+    notifications: {
+        notificationsEmail: false,
+        notificationsPush: false,
+        notificationsText: false,
+        notificationsPhone: false,
+        messagesEmail: false,
+        messagesPush: false,
+        messagesText: false,
+    }
 }
 
 const appReducer = createReducer(
@@ -111,8 +131,71 @@ const appReducer = createReducer(
     }),
     on(AppActions.logOut, state => {
         return {...state, currentUser: {}}
-    })
-    
+    }),
+    on(AppActions.changeAvatar, (state, {imgPath})=>{
+        return {
+            ...state,
+            userList: state.userList.map(user => user.userId === state.currentUser.userId ? {...user, avatarURL: `../../../../../assets/${imgPath}`}: user),
+            currentUser: {...state.currentUser, avatarURL: `../../../../../assets/${imgPath}`} 
+        }
+    }),
+    on(AppActions.removeAvatar, state => {
+        return{
+                ...state,
+                userList: state.userList.map(user => user.userId === state.currentUser.userId ? {...user, avatarURL: "../../../../../assets/no-avatar.png"}: user),
+                currentUser: {...state.currentUser, avatarURL: "../../../../../assets/no-avatar.png"} 
+        }
+    }),
+    on(AppActions.editNotifications, (state,{
+        notificationsEmail,
+        notificationsPush,
+        notificationsText,
+        notificationsPhone,
+        messagesEmail,
+        messagesPush,
+        messagesText,
+    }) => {
+        return{
+            ...state,
+            notifications: {
+                notificationsEmail,
+                notificationsPush,
+                notificationsText,
+                notificationsPhone,
+                messagesEmail,
+                messagesPush,
+                messagesText,
+            }
+        }
+    }),
+    on(AppActions.editUserInfo, (state,{
+        firstName,
+        lastName,
+        email,
+        phone,
+        country,
+        city}) => {
+            return {
+                ...state,
+                userList: state.userList.map(user => user.userId === state.currentUser.userId ? {
+                    ...user, 
+                    firstName, 
+                    lastName, 
+                    email, 
+                    phone, 
+                    country,
+                    city
+                }: user),
+                currentUser: {...state.currentUser, 
+                    firstName, 
+                    lastName, 
+                    email, 
+                    phone, 
+                    country,
+                    city
+                } 
+            }
+        })
 )
 
 export function AppReducer(state: IUserList | undefined, action: Action) {
