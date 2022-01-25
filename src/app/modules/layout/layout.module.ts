@@ -1,33 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SharedMaterialModuleModule } from '../shared-material-module/shared-material-module.module';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UsersComponent } from './components/users/users.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { ProductsComponent } from './components/products/products.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     LayoutComponent,
-    DashboardComponent,
-    UsersComponent,
-    ProfileComponent,
-    ProductsComponent,
     HeaderComponent,
     SidebarComponent
   ],
   imports: [
     CommonModule,
-    LayoutRoutingModule,
     SharedMaterialModuleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ]
 })
 export class LayoutModule { }
