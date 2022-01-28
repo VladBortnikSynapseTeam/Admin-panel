@@ -6,7 +6,7 @@
         </div>
         <button mat-raised-button class="product-btn">
             <mat-icon>add</mat-icon>
-            <span class="add-user-text" routerLink="adduser">ADD USER</span> 
+            <span class="add-user-text" routerLink="add-user">ADD USER</span> 
         </button>
     </div>
     <div class="table-container">
@@ -38,8 +38,8 @@
               </ng-container>
 
               <ng-container matColumnDef="editBtn">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-                <td mat-cell *matCellDef="let row"> <button class="list-item-btn" mat-button [routerLink]="['update',row.userId]">EDIT</button> </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class='th-action'> Action </th>
+                <td mat-cell *matCellDef="let row" class="td-action"> <button class="list-item-btn" mat-button [routerLink]="['update',row.userId]">EDIT</button> </td>
               </ng-container>
           
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

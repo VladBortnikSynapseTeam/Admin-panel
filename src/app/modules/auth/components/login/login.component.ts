@@ -1,33 +1,30 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'src/app/helpers/custom-validators';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   successLogin: boolean = true;
-  destroy$: Subject<boolean> = new Subject<boolean>();
-  loginForm = new FormGroup({
-    username: new FormControl("user@mail.com",Validators.minLength(6)),
-    password: new FormControl("Cardlord231202!",[
-      Validators.required,
-    CustomValidators.patternValidator(/[a-zA-Z]/,{noAlphabeticCharacters:true}),
-    CustomValidators.patternValidator(/[0-9]/,{noNumericCharacters: true}),
-    CustomValidators.patternValidator(/[!@\$%\^\&*\)\(+=._-]/,{noSpecialCharacters:true}),
-    Validators.minLength(8)
-    ])
-  })
+  loginForm: FormGroup;
   constructor(private authService: AuthService, private router: Router) { }
   
   ngOnInit(): void {
-
+    this.loginForm = new FormGroup({
+      username: new FormControl("user@mail.com",Validators.minLength(6)),
+      password: new FormControl("Cardlord231202!",[
+        Validators.required,
+        CustomValidators.patternValidator(/[a-zA-Z]/,{noAlphabeticCharacters:true}),
+        CustomValidators.patternValidator(/[0-9]/,{noNumericCharacters: true}),
+        CustomValidators.patternValidator(/[!@\$%\^\&*\)\(+=._-]/,{noSpecialCharacters:true}),
+        Validators.minLength(8)
+      ])
+    })
   }
 
   loginUser(loginForm: FormGroup){
@@ -37,10 +34,5 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: data.password
     }
     this.authService.loginUser(loginUserData)
-  }
-  
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

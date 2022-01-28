@@ -1,9 +1,11 @@
 <div class="user-container">
     <div class="basic-profile-container">
         <div class="basic-info-container">
-            <span class="basic-title">Edit user</span>
+            <span class="basic-title">
+                {{userId ? "Edit" : "Add"}} user
+            </span>
         </div> 
-            <form class="profile-form-container" [formGroup]="editForm">
+            <form class="profile-form-container" [formGroup]="form">
                 <mat-form-field appearance="outline" class="profile-input">
                     <mat-label>First Name</mat-label>
                     <input type="text" matInput formControlName="firstName">
@@ -19,7 +21,7 @@
                 <mat-form-field appearance="outline" class="profile-input">
                     <mat-label>Email</mat-label>
                     <input type="text" matInput formControlName="email">
-                    <mat-error *ngIf="editForm.hasError('email') && !editForm.hasError('required')">
+                    <mat-error *ngIf="form.hasError('email') && !form.hasError('required')">
                         Please enter a valid email address
                     </mat-error>
                 </mat-form-field>
@@ -41,7 +43,9 @@
                 </mat-form-field>
             </form>
         <mat-divider></mat-divider>
-        <button class="add-btn" [disabled]="!editForm.valid" [ngClass]="editForm.valid ? 'add-btn' : 'add-disable-btn'" (click)="editUser()">EDIT</button>
+        <button class="add-btn" [disabled]="!form.valid" [ngClass]="form.valid ? 'add-btn' : 'add-disable-btn'" (click)="submitForm()">
+            {{userId ? "UPDATE" : "ADD"}}
+        </button>
     </div>
 </div>
 

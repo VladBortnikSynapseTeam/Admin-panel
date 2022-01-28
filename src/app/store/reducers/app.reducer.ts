@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { generateGuid } from "src/app/helpers/generate-guid";
 import { AppActions } from "../actions/app.action";
+
 export interface IUser{
     userId: string;
     firstName: string;
@@ -14,6 +15,7 @@ export interface IUser{
     avatarURL: string;
     createdDate: Date;
 }
+
 export interface IUserList {
     userList: IUser[];
     dashboardData: IDashboardGraph;
@@ -44,6 +46,7 @@ export interface IDashboardGraph{
     progress: number;
     totalProfit: number;
 }
+
 export const initialState: IUserList = {
     userList: [
         {
@@ -127,28 +130,42 @@ const appReducer = createReducer(
             avatarURL:"../../../../../assets/no-avatar.png",
             createdDate: new Date()
         };
+
         return {...state, userList: [...state.userList, newUserList],currentUser: newUserList};
-      }),
+    }),
+
     on(AppActions.loginUser, (state, {user})=>{
         return {...state, currentUser: user}
     }),
+
     on(AppActions.logOut, state => {
         return {...state, currentUser: {}}
     }),
+
     on(AppActions.changeAvatar, (state, {imgPath})=>{
         return {
             ...state,
-            userList: state.userList.map(user => user.userId === state.currentUser.userId ? {...user, avatarURL: `../../../../../assets/${imgPath}`}: user),
+            userList: state.userList.map(user => 
+                user.userId === state.currentUser.userId ? {
+                    ...user, 
+                    avatarURL: `../../../../../assets/${imgPath}`
+                }: user),
             currentUser: {...state.currentUser, avatarURL: `../../../../../assets/${imgPath}`} 
         }
     }),
+
     on(AppActions.removeAvatar, state => {
         return{
-                ...state,
-                userList: state.userList.map(user => user.userId === state.currentUser.userId ? {...user, avatarURL: "../../../../../assets/no-avatar.png"}: user),
-                currentUser: {...state.currentUser, avatarURL: "../../../../../assets/no-avatar.png"} 
+            ...state,
+            userList: state.userList.map(user => 
+                user.userId === state.currentUser.userId ? {
+                    ...user, 
+                    avatarURL: "../../../../../assets/no-avatar.png"
+                }: user),
+            currentUser: {...state.currentUser, avatarURL: "../../../../../assets/no-avatar.png"} 
         }
     }),
+
     on(AppActions.editNotifications, (state,{
         notificationsEmail,
         notificationsPush,
@@ -171,6 +188,7 @@ const appReducer = createReducer(
             }
         }
     }),
+
     on(AppActions.editUserInfo, (state,{
         firstName,
         lastName,
@@ -199,11 +217,10 @@ const appReducer = createReducer(
                 } 
             }
         }),
+        
     on(AppActions.addUser, (state, {firstName,lastName,nickname,email,phone,userId,country,city})=>{
-        let newUser: IUser;
-        if(userId == ""){
-            newUser = {
-                userId: generateGuid(),
+        let newUser: IUser = {
+                userId: userId ? userId : generateGuid(),
                 firstName,
                 lastName,
                 nickname,
@@ -215,36 +232,23 @@ const appReducer = createReducer(
                 avatarURL:"../../../../../assets/no-avatar.png",
                 createdDate: new Date()
             }
-        }else{
-            newUser = {
-                userId,
-                firstName,
-                lastName,
-                nickname,
-                email,
-                password: "Cardlord231202!",
-                phone,
-                country,
-                city,
-                avatarURL:"../../../../../assets/no-avatar.png",
-                createdDate: new Date()
-            }
-        }
         
         return {...state, userList: [...state.userList, newUser]};
     }),
     on(AppActions.editUser, (state, {firstName,lastName,nickname,email,phone,userId,country,city})=>{
-        return {...state, userList: state.userList.map(user => user.userId === userId ? {
-            ...user,
-            userId, 
-            firstName, 
-            lastName,
-            nickname, 
-            email, 
-            phone, 
-            country,
-            city
-        }: user)
+        return {
+            ...state, 
+            userList: state.userList.map(user => user.userId === userId ? {
+                ...user,
+                userId, 
+                firstName, 
+                lastName,
+                nickname, 
+                email, 
+                phone, 
+                country,
+                city
+            }: user)
         };
     })
     

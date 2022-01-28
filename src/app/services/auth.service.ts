@@ -4,25 +4,33 @@ import { Store } from '@ngrx/store';
 import { AppActions } from '../store/actions/app.action';
 import { IUser } from '../store/reducers/app.reducer';
 import { AppSelectors } from '../store/selectors/app.selector';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   userList: IUser[];
+
   constructor(private store$: Store, private router: Router) { 
-    this.store$.select(AppSelectors.userList).subscribe(userList => {
+    this.store$.select(AppSelectors.userList)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(userList => {
       this.userList = userList;
     });
-   }
+  }
+
   loginUser(loginUserData){
     this.userList.forEach(user => {
-        if(user.email == loginUserData.email && user.password == loginUserData.password){
-          this.store$.dispatch(AppActions.loginUser({user}))
-          this.router.navigate(['app/dashboard'])
-        }
-      })
+      if(user.email == loginUserData.email && user.password == loginUserData.password){
+        this.store$.dispatch(AppActions.loginUser({user}))
+        this.router.navigate(['app/dashboard'])
+      }
+    })
   }
+
   registerUser(registerUserData){
    this.store$.dispatch(AppActions.registerUser(registerUserData))
    this.router.navigate(["app/dashboard"]);

@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="upload-picture-actions">
-                <input #file type="file" class="upload-btn" accept='image/*' (change)="userPhotoUpdate(file.files)"> 
+                <input #file type="file" class="upload-btn" (change)="userPhotoUpdate(file.files)"> 
                 <button class="remove-btn" (click)="removeAvatar()">Remove Picture</button>
             </div>
         </div>

@@ -35,17 +35,12 @@
                         Your character must include a special character
                     </div>
                 </div>  
-                   
-
-
                     <input type="text" class="sign-in-input" placeholder="Confirm password" formControlName="userRePassword" type="password">
                     <div class="error-container" *ngIf="registerForm.controls['userRePassword'].touched && !registerForm.controls['userRePassword'].valid">
                         <div class="error-handler" *ngIf="registerForm.controls['userRePassword'].value !== registerForm.controls['password'].value">
                             Your passwords does not match
                         </div>
                     </div>
-                    
-
                     <div class="terms-agree">
                         <div class="terms-pos">
                             <input type="checkbox" class="terms-checkbox" formControlName="userTerms">
@@ -56,15 +51,12 @@
                                 You shoud read and agree with our terms and conditions
                             </div>
                         </div>
-                        
                     </div>
                     <button class="register-btn" type="submit" mat-stroked-button (submit)="registerUser(registerForm)" [disabled]="!registerForm.valid || registerForm.value.userTerms === false">SIGN UP NOW</button>
                 </form>
             </div>
         </div>
-        <div class="login-pic">
-           
-        </div>
+        <div class="login-pic"></div>
     </div>
 </div>
 

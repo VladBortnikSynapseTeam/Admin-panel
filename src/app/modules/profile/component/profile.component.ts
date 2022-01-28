@@ -1,30 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppActions } from 'src/app/store/actions/app.action';
 import { INotifications, IUser } from 'src/app/store/reducers/app.reducer';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   editForm: FormGroup;
   notificationForm: FormGroup;
   currentUser: IUser;
   notifications: INotifications;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(private store$: Store, private _snackBar: MatSnackBar) {
-  this.store$.select(AppSelectors.currentUser)
-  .subscribe(user => this.currentUser = user);
-  this.store$.select(AppSelectors.currentNotification)
-  .subscribe(notifications => this.notifications = notifications);
+    this.store$.select(AppSelectors.currentUser)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(user => this.currentUser = user);
+    
+    this.store$.select(AppSelectors.currentNotification)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(notifications => this.notifications = notifications);
   }
 
   ngOnInit(): void {
@@ -93,5 +96,10 @@ export class ProfileComponent implements OnInit {
       horizontalPosition: "right",
       verticalPosition: "top"
     })
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

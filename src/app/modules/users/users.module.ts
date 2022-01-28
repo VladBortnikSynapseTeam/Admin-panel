@@ -4,15 +4,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './components/user-component/users.component'
 import { SharedMaterialModuleModule } from '../shared-material-module/shared-material-module.module';
-import { UserUpdateComponent } from './components/user-update/user-update.component';
-import { UserAddComponent } from './components/user-add/user-add.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { UserUpdateComponent } from './components/user-form/user-form.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 
 @NgModule({
-  declarations: [UsersComponent, UserUpdateComponent, UserAddComponent],
+  declarations: [UsersComponent, UserUpdateComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,
