@@ -165,6 +165,7 @@
 }
 .profile-input {
   width: 328px;
+  height: 56px;
   border-radius: 4px;
   padding: 0px;
 }
@@ -183,6 +184,27 @@
   width: 152px;
   height: 40px;
   outline: none;
+  background: #00b4d8;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+  color: white;
+  border: none;
+  transition: 0.2s ease-in-out;
+  margin: 24px 0px 24px 24px;
+}
+.save-disable-btn {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  width: 152px;
+  height: 40px;
+  outline: none;
   background: white;
   font-family: Roboto;
   font-style: normal;
@@ -192,15 +214,10 @@
   text-align: center;
   letter-spacing: 1.25px;
   text-transform: uppercase;
-  color: #00b4d8;
+  color: lightgray;
   border: none;
   transition: 0.2s ease-in-out;
   margin: 24px 0px 24px 24px;
-}
-.save-btn:hover {
-  background-color: #00b4d8;
-  color: white;
-  transition: 0.2s ease-in-out;
 }
 .notifications-container {
   margin-top: 29px;

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { IProductList, IUserList } from 'src/app/store/reducers/app.reducer';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
 

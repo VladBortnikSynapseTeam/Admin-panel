@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { AppActions } from 'src/app/store/actions/app.action';
-import { IUser } from 'src/app/store/reducers/app.reducer';
+import { INotifications, IUser } from 'src/app/store/reducers/app.reducer';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -15,9 +19,12 @@ export class ProfileComponent implements OnInit {
   editForm: FormGroup;
   notificationForm: FormGroup;
   currentUser: IUser;
-  constructor(private store$: Store) {
+  notifications: INotifications;
+  constructor(private store$: Store, private _snackBar: MatSnackBar) {
   this.store$.select(AppSelectors.currentUser)
   .subscribe(user => this.currentUser = user);
+  this.store$.select(AppSelectors.currentNotification)
+  .subscribe(notifications => this.notifications = notifications);
   }
 
   ngOnInit(): void {
@@ -30,14 +37,15 @@ export class ProfileComponent implements OnInit {
       city: new FormControl(this.currentUser.city,Validators.required)
     })
     this.notificationForm = new FormGroup({
-      notificationsEmail: new FormControl(false),
-      notificationsPush: new FormControl(false),
-      notificationsText: new FormControl(false),
-      notificationsPhone: new FormControl(false),
-      messagesEmail: new FormControl(false),
-      messagesPush: new FormControl(false),
-      messagesText: new FormControl(false),
+      notificationsEmail: new FormControl(this.notifications.notificationsEmail),
+      notificationsPush: new FormControl(this.notifications.notificationsPush),
+      notificationsText: new FormControl(this.notifications.notificationsText),
+      notificationsPhone: new FormControl(this.notifications.notificationsPhone),
+      messagesEmail: new FormControl(this.notifications.messagesEmail),
+      messagesPush: new FormControl(this.notifications.messagesPush),
+      messagesText: new FormControl(this.notifications.messagesText),
     })
+    
   }
 
   profileEdit():void{
@@ -49,6 +57,10 @@ export class ProfileComponent implements OnInit {
       country: this.editForm.value.country,
       city: this.editForm.value.city
     }))
+    this._snackBar.open('Profile has been updated!', 'Done',{
+      horizontalPosition: "right",
+      verticalPosition: "top"
+    })
   }
   
   notificationsSettings():void{
@@ -61,14 +73,25 @@ export class ProfileComponent implements OnInit {
       notificationsPush: this.notificationForm.value.notificationsPush,
       notificationsText: this.notificationForm.value.notificationsText
     }))
-    
+    this._snackBar.open('Notifications has been saved!', 'Done',{
+      horizontalPosition: "right",
+      verticalPosition: "top"
+    })
   }
 
   userPhotoUpdate(image):void{
     this.store$.dispatch(AppActions.changeAvatar({imgPath: image[0].name}))
+    this._snackBar.open('User picture successfully updated!', 'Done',{
+      horizontalPosition: "right",
+      verticalPosition: "top"
+    })
   }
 
   removeAvatar():void{
     this.store$.dispatch(AppActions.removeAvatar());
+    this._snackBar.open('User picture successfully deleted!', 'Done',{
+      horizontalPosition: "right",
+      verticalPosition: "top"
+    })
   }
 }

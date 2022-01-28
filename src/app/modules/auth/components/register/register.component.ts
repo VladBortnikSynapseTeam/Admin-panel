@@ -2,7 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { CustomValidators } from 'src/app/custom-validators';
+import { CustomValidators } from 'src/app/helpers/custom-validators';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';

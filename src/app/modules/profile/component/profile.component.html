@@ -37,7 +37,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="profile-input">
                     <mat-label>Phone number</mat-label>
-                    <input type="text" matInput formControlName="phone">
+                    <input type="text" matInput formControlName="phone" mask="(000)-000-00-00">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="profile-input">
                     <mat-label>Country</mat-label>
@@ -45,11 +45,11 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="profile-input">
                     <mat-label>City</mat-label>
-                    <input type="text" class="profile-input" matInput formControlName="city">
+                    <input type="text" matInput formControlName="city">
                 </mat-form-field>
             </form>
             <mat-divider></mat-divider>
-            <button class="save-btn" (click)="profileEdit()">Save settings</button>
+            <button class="save-btn" (click)="profileEdit()" [disabled]="!editForm.valid" [ngClass]="editForm.valid ? 'save-btn' : 'save-disable-btn'">Save settings</button>
         </div>
         <div class="notifications-container">
             <div class="basic-info-container">

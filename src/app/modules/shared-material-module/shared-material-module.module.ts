@@ -8,7 +8,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [],
   imports: [
@@ -22,7 +23,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatIconModule,
     MatListModule,
     MatTableModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSnackBarModule,
+    MatPaginatorModule
   ]
 })
 export class SharedMaterialModuleModule { }

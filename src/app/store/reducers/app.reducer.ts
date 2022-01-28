@@ -12,6 +12,7 @@ export interface IUser{
     country: string;
     city: string;
     avatarURL: string;
+    createdDate: Date;
 }
 export interface IUserList {
     userList: IUser[];
@@ -52,10 +53,11 @@ export const initialState: IUserList = {
             nickname: "SampleUser",
             email: "user@mail.com",
             password:"Cardlord231202!",
-            phone: "+380980954256",
+            phone: "0980954256",
             country: "Ukraine",
             city: "Vinnytsia",
-            avatarURL:"../../../../../assets/no-avatar.png"
+            avatarURL:"../../../../../assets/no-avatar.png",
+            createdDate: new Date()
         }
     ],
     dashboardData: {
@@ -122,7 +124,8 @@ const appReducer = createReducer(
             phone: "Unknown",
             country: "Unknown",
             city: "Unknown",
-            avatarURL:"../../../../../assets/no-avatar.png"
+            avatarURL:"../../../../../assets/no-avatar.png",
+            createdDate: new Date()
         };
         return {...state, userList: [...state.userList, newUserList],currentUser: newUserList};
       }),
@@ -195,7 +198,56 @@ const appReducer = createReducer(
                     city
                 } 
             }
-        })
+        }),
+    on(AppActions.addUser, (state, {firstName,lastName,nickname,email,phone,userId,country,city})=>{
+        let newUser: IUser;
+        if(userId == ""){
+            newUser = {
+                userId: generateGuid(),
+                firstName,
+                lastName,
+                nickname,
+                email,
+                password: "Cardlord231202!",
+                phone,
+                country,
+                city,
+                avatarURL:"../../../../../assets/no-avatar.png",
+                createdDate: new Date()
+            }
+        }else{
+            newUser = {
+                userId,
+                firstName,
+                lastName,
+                nickname,
+                email,
+                password: "Cardlord231202!",
+                phone,
+                country,
+                city,
+                avatarURL:"../../../../../assets/no-avatar.png",
+                createdDate: new Date()
+            }
+        }
+        
+        return {...state, userList: [...state.userList, newUser]};
+    }),
+    on(AppActions.editUser, (state, {firstName,lastName,nickname,email,phone,userId,country,city})=>{
+        return {...state, userList: state.userList.map(user => user.userId === userId ? {
+            ...user,
+            userId, 
+            firstName, 
+            lastName,
+            nickname, 
+            email, 
+            phone, 
+            country,
+            city
+        }: user)
+        };
+    })
+    
 )
 
 export function AppReducer(state: IUserList | undefined, action: Action) {

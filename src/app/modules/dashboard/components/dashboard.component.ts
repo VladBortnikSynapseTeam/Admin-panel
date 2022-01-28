@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as echarts from 'echarts';
-import { Observable } from 'rxjs';
-import { IDashboardGraph, IUser, IUserList } from 'src/app/store/reducers/app.reducer';
+import { IDashboardGraph } from 'src/app/store/reducers/app.reducer';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
