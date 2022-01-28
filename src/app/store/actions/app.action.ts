@@ -20,6 +20,7 @@ export namespace AppActions {
         messagesEmail: boolean,
         messagesPush: boolean,
         messagesText: boolean,
+        
     }>())
     export const editUserInfo = createAction("EDIT_USER_INFO", props<{
         firstName:string,
