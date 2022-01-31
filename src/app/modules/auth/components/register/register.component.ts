@@ -39,14 +39,9 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  registerUser(formControl: any){
-    let data = formControl.value;
-    let registerUserData = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      password: data.password
+  registerUser(){
+    if(this.registerForm.valid){
+      this.authServise.registerUser(this.registerForm.value);
     }
-    this.authServise.registerUser(registerUserData);
   }
 }

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IUser } from "../reducers/app.reducer";
+import { IUser } from "src/app/models/models";
 
 export namespace AppActions {
     export const registerUser = createAction("REGISTER_USER", props<{

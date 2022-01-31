@@ -1,5 +1,5 @@
 import { createFeatureSelector,createSelector, State, Store } from "@ngrx/store";
-import { IUserList } from "../reducers/app.reducer";
+import { IUserList } from "src/app/models/models";
 
 export namespace AppSelectors {
     export const state = createFeatureSelector<IUserList>('app');

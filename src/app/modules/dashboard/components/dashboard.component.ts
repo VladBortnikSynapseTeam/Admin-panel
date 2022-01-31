@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as echarts from 'echarts';
-import { IDashboardGraph } from 'src/app/store/reducers/app.reducer';
+import { Subject, takeUntil } from 'rxjs';
+import { IDashboardGraph } from 'src/app/models/models';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
 
 @Component({
@@ -9,21 +10,22 @@ import { AppSelectors } from 'src/app/store/selectors/app.selector';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   dashboardData: IDashboardGraph;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private store$: Store) { 
-    this.store$.select(AppSelectors.state).subscribe(
-      store => {
+    this.store$.select(AppSelectors.state)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe( store => {
         this.dashboardData = store.dashboardData;
-        
       }
     );
    }
 
   ngOnInit(): void {
-  var chartDom = document.getElementById('graph')!;
-  var myChart = echarts.init(chartDom);
+  let chartDom = document.getElementById('graph')!;
+  let myChart = echarts.init(chartDom);
   const option = {
       color: [
         "#00B4D8",
@@ -77,5 +79,10 @@ export class DashboardComponent implements OnInit {
     };
 
     option && myChart.setOption(option);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

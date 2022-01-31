@@ -2,29 +2,22 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppActions } from '../store/actions/app.action';
-import { IUser } from '../store/reducers/app.reducer';
-import { AppSelectors } from '../store/selectors/app.selector';
+import { IUser } from '../models/models';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   destroy$: Subject<boolean> = new Subject<boolean>();
-  userList: IUser[];
 
-  constructor(private store$: Store, private router: Router) { 
-    this.store$.select(AppSelectors.userList)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(userList => {
-      this.userList = userList;
-    });
-  }
+  constructor(private router: Router, private store$: Store) { }
 
-  loginUser(loginUserData){
-    this.userList.forEach(user => {
-      if(user.email == loginUserData.email && user.password == loginUserData.password){
+  loginUser(loginUserData, userList: IUser[]){
+    console.log(loginUserData);
+    console.log(userList);
+    userList.forEach(user => {
+      if(user.email == loginUserData.username && user.password == loginUserData.password){
         this.store$.dispatch(AppActions.loginUser({user}))
         this.router.navigate(['app/dashboard'])
       }

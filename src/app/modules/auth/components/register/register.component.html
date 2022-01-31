@@ -10,7 +10,7 @@
                     <p class="form-header">Sign up to Angular</p>
                     <p class="form-text">Sign up on our platform</p>
                 </div>
-                <form [formGroup]="registerForm" (submit)="registerUser(registerForm)">
+                <form [formGroup]="registerForm" (submit)="registerUser()">
                     <input type="text" class="sign-in-input" placeholder="First Name" formControlName="firstName">
                     <input type="text" class="sign-in-input" placeholder="Last Name" formControlName="lastName">
                     <input type="text" class="sign-in-input" placeholder="Email Address" formControlName="email">
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="register-btn" type="submit" mat-stroked-button (submit)="registerUser(registerForm)" [disabled]="!registerForm.valid || registerForm.value.userTerms === false">SIGN UP NOW</button>
+                    <button class="register-btn" type="submit" mat-stroked-button (submit)="registerUser()" [disabled]="!registerForm.valid || registerForm.value.userTerms === false">SIGN UP NOW</button>
                 </form>
             </div>
         </div>

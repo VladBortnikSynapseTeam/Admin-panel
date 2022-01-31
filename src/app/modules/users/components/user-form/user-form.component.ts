@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { IUser } from 'src/app/store/reducers/app.reducer';
+import { IUser } from 'src/app/models/models';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -42,16 +42,7 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
   }
 
   editUser(){
-    this.store$.dispatch(AppActions.editUser({
-      firstName: this.form.value.firstName,
-      lastName: this.form.value.lastName,
-      nickname: this.form.value.nickname,
-      email: this.form.value.email,
-      phone: this.form.value.phone,
-      userId: this.form.value.userId,
-      country: this.form.value.country,
-      city: this.form.value.city
-    }))
+    this.store$.dispatch(AppActions.editUser(this.form.value))
   }
 
   getUser(){
@@ -88,17 +79,7 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
   }
 
   addUser(){
-    this.store$.dispatch(AppActions.addUser({
-        firstName: this.form.value.firstName,
-        lastName: this.form.value.lastName,
-        nickname: this.form.value.nickname,
-        email: this.form.value.email,
-        phone: this.form.value.phone,
-        userId: this.form.value.userId,
-        country: this.form.value.country,
-        city: this.form.value.city
-      })
-    )
+    this.store$.dispatch(AppActions.addUser(this.form.value))
   }
 
   ngOnDestroy() {

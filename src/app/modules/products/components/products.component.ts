@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { IProductList } from 'src/app/store/reducers/app.reducer';
+import { IProductList } from 'src/app/models/models';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

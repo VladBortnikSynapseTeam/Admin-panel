@@ -1,18 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'src/app/helpers/custom-validators';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { IUser } from 'src/app/models/models';
+import { Store } from '@ngrx/store';
+import { AppSelectors } from 'src/app/store/selectors/app.selector';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
   successLogin: boolean = true;
   loginForm: FormGroup;
-  constructor(private authService: AuthService, private router: Router) { }
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  userList: IUser[];
+  constructor(private authService: AuthService, private store$: Store) { 
+    this.store$.select(AppSelectors.userList)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(userList => {
+      this.userList = userList;
+    });
+   }
   
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -27,12 +39,14 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  loginUser(loginForm: FormGroup){
-    let data = loginForm.value;
-    let loginUserData = {
-      email: data.username,
-      password: data.password
+  loginUser(){
+    if(this.loginForm.valid){
+      this.authService.loginUser(this.loginForm.value, this.userList)
     }
-    this.authService.loginUser(loginUserData)
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

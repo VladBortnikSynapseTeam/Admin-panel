@@ -4,7 +4,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
-import { IUser } from 'src/app/store/reducers/app.reducer';
+import { IUser } from 'src/app/models/models';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
 
 @Component({
@@ -23,8 +23,10 @@ export class UsersComponent implements OnDestroy {
   constructor(private store$: Store) { 
     this.store$.select(AppSelectors.userList)
     .pipe(takeUntil(this.destroy$))
-    .subscribe(users => this.data = users)
-    this.dataSource = new MatTableDataSource(this.data)
+    .subscribe(users => {
+      this.data = users;
+      this.dataSource = new MatTableDataSource(this.data);
+    })
    }
 
   applyFilter(event: Event) {

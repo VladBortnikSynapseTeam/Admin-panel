@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppActions } from 'src/app/store/actions/app.action';
-import { INotifications, IUser } from 'src/app/store/reducers/app.reducer';
+import { INotifications, IUser } from 'src/app/models/models';
 import { AppSelectors } from 'src/app/store/selectors/app.selector';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -52,14 +52,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   profileEdit():void{
-    this.store$.dispatch(AppActions.editUserInfo({
-      firstName: this.editForm.value.firstName,
-      lastName: this.editForm.value.lastName,
-      email: this.editForm.value.email,
-      phone: this.editForm.value.phone,
-      country: this.editForm.value.country,
-      city: this.editForm.value.city
-    }))
+    this.store$.dispatch(AppActions.editUserInfo(this.editForm.value))
     this._snackBar.open('Profile has been updated!', 'Done',{
       horizontalPosition: "right",
       verticalPosition: "top"
@@ -67,15 +60,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   
   notificationsSettings():void{
-    this.store$.dispatch(AppActions.editNotifications({
-      messagesEmail: this.notificationForm.value.messagesEmail,
-      messagesPush: this.notificationForm.value.messagesPush,
-      messagesText: this.notificationForm.value.messagesText,
-      notificationsEmail: this.notificationForm.value.notificationsEmail,
-      notificationsPhone: this.notificationForm.value.notificationsPhone,
-      notificationsPush: this.notificationForm.value.notificationsPush,
-      notificationsText: this.notificationForm.value.notificationsText
-    }))
+    this.store$.dispatch(AppActions.editNotifications(this.notificationForm.value));
     this._snackBar.open('Notifications has been saved!', 'Done',{
       horizontalPosition: "right",
       verticalPosition: "top"
